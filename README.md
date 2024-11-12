@@ -1,7 +1,10 @@
-# elixir-monitoring
-community made dashboard for the Elixir node
+# Elixir monitoring
 
-<B>Install guide:</B>
+Community made dashboard for the Elixir node
+
+![Grafana board](grafana.png)
+
+## Install guide
 
 1. Install Prometheus on the system with Elixir node https://prometheus.io/docs/prometheus/latest/installation/
 2. Install Node Exporter on the same machine https://prometheus.io/docs/guides/node-exporter/
@@ -34,10 +37,15 @@ scrape_configs:
 
 4. Install Infinity plugin for your Grafana instance
    
-  ```grafana-cli plugins install yesoreyeram-infinity-datasource```
+ `grafana-cli plugins install yesoreyeram-infinity-datasource`
 
 5. Add your Prometheus and Infinity data sources to grafana </BR>
     Prometheus URL - `http://<your-node-ip>:9090` </BR>
     Infinity URL - `http://<your-node-ip>:17690/health`
 6. In the Dashboards Grafana menu import `elixir_template.json` from this repository
 7. In the dashboard top left corner fill the "Prometheus" and "Infinity" variables with your datasources
+8. Secure the access to the endpoints with UFW 
+```
+sudo ufw allow from your-grafana-ip proto tcp to any port 9090
+sudo ufw allow from your-grafana-ip proto tcp to any port 17690
+```
